@@ -26,7 +26,46 @@ Cypress.Commands.add('token', (email, senha) => {
           failOnStatusCode: false
     })
  })
- 
+ Cypress.Commands.add('editarUsuario', (usuarioId, nome, email, senha, administrador) => {
+    cy.request({
+        method: 'PUT',
+        url: `usuarios/${usuarioId}`,
+        body: {
+            nome: nome,
+            email: email,
+            password: senha,
+            administrador: administrador
+        }
+    }).then((response) => {
+        expect(response.status).to.equal(200);
+        return response.body;
+    });
+ })
+
+ Cypress.Commands.add('editarUsuario', (usuarioId, nome, email, senha, administrador) => {
+    cy.request({
+        method: 'PUT',
+        url: `usuarios/${usuarioId}`,
+        body: {
+            nome: nome,
+            email: email,
+            password: senha,
+            administrador: administrador
+        }
+    }).then((response) => {
+        expect(response.status).to.equal(200);
+        return response.body;
+    });
+ })
+ Cypress.Commands.add('deletarUsuario', (usuarioId, token) => {
+    cy.request({
+        method: 'DELETE',
+        url: `usuarios/${usuarioId}`,
+        headers: { authorization: token },
+        failOnStatusCode: false
+    });
+    
+}); 
 
  
 
